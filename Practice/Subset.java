@@ -4,7 +4,7 @@ import java.util.*;
 public class Subset {
     
     public static void findSubsets(int arr[], int idx, ArrayList<ArrayList<Integer>> res, ArrayList<Integer> list) {
-         res.add(new ArrayList<>(list));
+        res.add(new ArrayList<>(list));
         
         for (int i = idx; i < arr.length; i++) {
             if (i != idx && arr[i] == arr[i - 1]) {

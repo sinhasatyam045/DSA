@@ -84,6 +84,7 @@ public class palindromeCheck {
         Node left = head;
 
         // Step 3->Check left half and right half nodes
+        
         while (right != null) {
             if (left.data != right.data) {
                 return false;

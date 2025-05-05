@@ -1,39 +1,50 @@
 package SingleLinkedList;
-import java.util.*;
+
 public class AddTwoNumbers {
 
-    public static Node head1;
-    public static Node head2;
-
-    public static class Node{
+    // Definition for singly-linked list
+    public static class Node {
         int data;
         Node next;
-        public Node(int data){
-            this.data=data;
-            this.next=null;
+
+        public Node(int data) {
+            this.data = data;
+            this.next = null;
         }
     }
 
-    public static Node getSum(Node head1,Node head2){
-        reverse(head1);
-        reverse(head2);
-        int num1=getSum(head1);
-        int num2=getSum(head2);
-        int sum=num1+num2;
-        
-        Node resHead=new Node(sum%10);
-        sum=sum/10;
-        int dig=0;
-        while(sum>0){
-            dig=sum%10;
-            resHead.next=new Node(dig);
-            sum/=10;
+    // Function to add two numbers represented by linked lists
+    public static Node addTwoNumbers(Node head1, Node head2) {
+        Node head3=reverse(head1);
+        Node head4=reverse(head2);
+        int carry=0;
+        Node dummy=new Node(0);
+        Node start=dummy;
 
+        while(head3!=null || head4!=null || carry!=0){
+            int sum=0;
+            if(head3!=null){
+                sum+=head3.data;
+                head3=head3.next;
+            }
+            if(head4!=null){
+                sum+=head4.data;
+                head4=head4.next;
+            }
+            if(carry!=0){
+                sum+=carry;
+            }
+            start.next=new Node(sum%10);
+            start=start.next;
+            carry=sum/10;
         }
-        return resHead;
+
+        Node res=reverse(dummy.next);
+        return res;
 
     }
-    public static void reverse(Node head){
+
+    public static Node reverse(Node head){
         Node prev=null;
         Node curr=head;
         Node next;
@@ -43,32 +54,40 @@ public class AddTwoNumbers {
             prev=curr;
             curr=next;
         }
-        head=prev;
+        return prev;
     }
-    public static int getSum(Node head1){
-        Node temp=head1;
-        int s=0;
-        while(temp!=null){
-            s=(s*10)+temp.data;
-            temp=temp.next;
+
+    // Utility function to print the linked list
+    public static void printList(Node head) {
+        while (head != null) {
+            System.out.print(head.data + " ");
+            head = head.next;
         }
-        return s;
+        System.out.println();
     }
 
+    public static void main(String[] args) {
+        // First number: 342 (stored as 2 -> 4 -> 3)
+        Node head1 = new Node(4);
+        head1.next = new Node(5);
+        head1.next.next = new Node(9);
+        head1.next.next.next = new Node(9);
 
-    public static void main(String args[]){
-        AddTwoNumbers ll=new AddTwoNumbers();
-        ll.head1=new Node(3);
-        ll.head1.next=new Node(5);
-        
+        // Second number: 465 (stored as 5 -> 6 -> 4)
+        Node head2 = new Node(3);
+        head2.next = new Node(5);
+         
 
-        ll.head2=new Node(4);
-        ll.head2.next=new Node(5);
-        ll.head2.next.next=new Node(9);
-        ll.head2.next.next.next=new Node(9);
+        System.out.println("First Number: ");
+        printList(head1);
 
-        Node res=ll.getSum(head1,head2);
-        System.out.print(res.data);
+        System.out.println("Second Number: ");
+        printList(head2);
+
+        // Add two numbers
+        Node result = addTwoNumbers(head1,head2);
+
+        System.out.println("Sum: ");
+        printList(result);
     }
-    
 }

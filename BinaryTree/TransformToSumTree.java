@@ -13,17 +13,16 @@ public class TransformToSumTree {
     }
 
     static int transform(Node root) {
-        // Base Case:
-        if (root == null) {
+        if(root==null){
             return 0;
         }
-        int leftchild = transform(root.left);
-        int rightchild = transform(root.right);
-        int tmp = root.data;
-        int newleft = root.left == null ? 0 : root.left.data;
-        int newright = root.right == null ? 0 : root.right.data;
-        root.data = newleft + leftchild + newright + rightchild;
-        return tmp;
+        int temp=root.data;
+        int left=transform(root.left);
+        int right=transform(root.right);
+        int newLeft=root.left==null ? 0 : root.left.data;
+        int newRight=root.right==null ? 0 : root.right.data; 
+        root.data=left+newLeft+right+newRight;
+        return temp;
     }
 
     static void preOrder(Node root) {

@@ -23,7 +23,7 @@ public class intersection {
             return getIntersection(d, head1, head2);
         }
         d = c2 - c1;
-        return getIntersection(d, head1, head2);
+        return getIntersection(d, head2, head1);
     }
 
     // For getting the intersection node
@@ -62,22 +62,28 @@ public class intersection {
         intersection ss = new intersection();
 
         // Create first linked list
-        ss.head1 = new Node(10);
+        ss.head1 = new Node(1);
         ss.head1.next = new Node(2);
-        ss.head1.next.next = new Node(4);
-        ss.head1.next.next.next = new Node(7);
-        ss.head1.next.next.next.next = new Node(5);
+        ss.head1.next.next = new Node(3);
 
-        // Create second linked list
-        ss.head2 = new Node(1);
-        ss.head2.next = new Node(7);
-        ss.head2.next.next = new Node(5);
+        // Create second linked list: 4 -> 5 -> 6 -> 7 -> 8 (intersection at 6)
+        ss.head2 = new Node(4);
+        ss.head2.next = new Node(5);
 
-        Node intersectionNode = ss.getNode();
-        if (intersectionNode == null) {
-            System.out.println("No intersection found");
+        // Create the intersection point
+        Node intersectionNode = new Node(6);
+        ss.head1.next.next.next = intersectionNode;   // Attach to first list
+        ss.head2.next.next = intersectionNode;         // Attach to second list
+
+        // Continue common nodes
+        intersectionNode.next = new Node(7);
+        intersectionNode.next.next = new Node(8);
+
+        Node result = ss.getNode();
+        if (result != null) {
+            System.out.println("Intersection node: " + result.data);
         } else {
-            System.out.println("Intersection node: " + intersectionNode.data);
+            System.out.println("No intersection found");
         }
     }
 }
